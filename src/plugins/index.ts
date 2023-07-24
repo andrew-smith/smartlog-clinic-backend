@@ -13,6 +13,11 @@ export async function initPlugins() {
     }
 
     for(const plugin of LOADED_PLUGINS) {
-        await plugin.init();
+        try {
+            await plugin.init();
+        }
+        catch(e) {
+            console.error(`Failed to initialize plugin ${plugin.constructor.name}`, e);
+        }
     }
 }
