@@ -4,6 +4,7 @@ import bodyParser from 'koa-body';
 import Router from 'koa-router';
 import Boom from '@hapi/boom';
 import { handlePost } from './routes';
+import { initPlugins } from './plugins';
 
 
 
@@ -11,12 +12,11 @@ import { handlePost } from './routes';
 async function start() {
     console.log(`Starting up at ${new Date().toISOString()}`);
 
+    await initPlugins();
+
     const app = new Koa();
-
     app.use(bodyParser());
-
     const router = new Router();
-
 
     router.post('/', async (ctx) => {
         
