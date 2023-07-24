@@ -23,8 +23,6 @@ RUN npm ci --production
 # Final image container
 FROM node:18.17.0-bullseye-slim
 
-ENV PUID=1001
-
 EXPOSE 3000
 
 WORKDIR /usr/src/app
