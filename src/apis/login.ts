@@ -1,5 +1,6 @@
 import { Boom, badRequest } from "@hapi/boom";
 import { LoginRequest } from "../types/LoginRequest";
+import { CLINIC_EVENTS, EventType } from "../services/Events";
 
 
 export async function loginRequest(login: LoginRequest) {
@@ -14,6 +15,8 @@ export async function loginRequest(login: LoginRequest) {
     }
 
     const { user_id, user_pw_hashed } = login.data[0];
+
+    CLINIC_EVENTS.emit(EventType.USER_LOGIN, { user_id, user_pw_hashed });
 
     // automatically log in
     return {
