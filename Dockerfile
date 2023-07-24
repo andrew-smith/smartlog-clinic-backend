@@ -30,9 +30,4 @@ COPY package.json ./
 COPY --from=deps /usr/src/app/node_modules ./node_modules
 COPY --from=build /usr/src/app/dist ./dist
 
-# Will speed up runtime if default PUID is used
-RUN groupmod -o -g "$PUID" node && usermod -o -u "$PUID" node && \
-    chown -R $PUID:$PUID /usr/src/app
-
-COPY ./docker-entrypoint.sh /docker-entrypoint.sh
-ENTRYPOINT [ "/docker-entrypoint.sh" ]
+ENTRYPOINT [ "npm", "run", "start:docker" ]
